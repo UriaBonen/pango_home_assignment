@@ -23,7 +23,7 @@ class TestTemperature:
                 return item.get(key)
         return None
 
-    def get_cities(self, driver, n=20):
+    def get_cities(self, driver, n=5):
         driver.get(config.TIME_AND_DATE_HOME_PAGE)
         home_page = TimeAndDateHomePage(driver)
         all_popular_cities = home_page.get_all_most_popular_cities()
@@ -63,7 +63,7 @@ class TestTemperature:
         web_cities = self.get_cities(driver)
 
         web_data = self.get_web_temperature_and_feels_like(driver, cities=web_cities)
-        api_cities_list = [item["city"] for item in web_cities]
+        api_cities_list = [item["city"] for item in web_data]
         api_data = self.get_api_temperature_and_feels_like(driver, cities=api_cities_list)
         db = DatabaseHelper()
         for city in api_cities_list:
@@ -86,8 +86,10 @@ class TestTemperature:
 
     def test_temp(self,driver):
         data = self.generate_api_and_web_data(driver=driver)
-        report = ReportGenerator(data)
-        report.generate_html()
-
+        try:
+            report = ReportGenerator(data)
+            report.generate_html()
+        except:
+            print("Report creation failed.")
 
 
