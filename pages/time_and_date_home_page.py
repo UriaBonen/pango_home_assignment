@@ -1,10 +1,8 @@
 import re
 import random
-from telnetlib import EC
 
 import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 
 import config
 from pages.base_page import BasePage
@@ -52,9 +50,7 @@ class TimeAndDateHomePage(BasePage):
     def get_random_n_cities(self, cities: list, n: int) -> dict:
         return random.sample(cities, n)
 
-    def click_on_city(self, city: str, timeout: int = 20):
-        xpath = f"//*[contains(text(), '{city}')]"
-        element = WebDriverWait(self.driver, timeout).until(
-            EC.element_to_be_clickable((By.XPATH, xpath))
-        )
-        element.click()
+    def click_on_city(self, city: str):
+        xpth= f"//*[contains(text(), '{city}')]"
+        self.driver.find_element(By.XPATH, xpth).click()
+

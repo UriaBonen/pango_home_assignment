@@ -47,7 +47,6 @@ class TestTemperature:
 
     def get_api_temperature_and_feels_like(self, driver, cities):
         api_helper = ApiHelper()
-        cities = cities
         api_data = []
         for city in cities:
             api_elmnt = {}
