@@ -23,7 +23,7 @@ class TestTemperature:
                 return item.get(key)
         return None
 
-    def get_cities(self, driver, n=5):
+    def get_cities(self, driver, n=20):
         driver.get(config.TIME_AND_DATE_HOME_PAGE)
         home_page = TimeAndDateHomePage(driver)
         all_popular_cities = home_page.get_all_most_popular_cities()
